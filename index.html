@@ -67,7 +67,7 @@ img{max-width:100%}
 @media(max-width:700px){.slot-logo{display:none}}
 .hero-art{position:absolute;right:-3%;top:-4%;font:700 clamp(230px,40vw,580px)/.8 "Space Grotesk",Inter,sans-serif;letter-spacing:-.07em;color:#0E0E0D;opacity:.9;pointer-events:none;user-select:none}
 .hero-photo{position:absolute;right:0;top:0;bottom:0;width:min(64%,680px);height:100%;object-fit:cover;-webkit-mask-image:linear-gradient(to left,#000 55%,transparent);mask-image:linear-gradient(to left,#000 55%,transparent);pointer-events:none}
-.hero>*{position:relative;z-index:1}
+.hero>*:not(.hero-art):not(.hero-photo):not(.hero-logo):not(.slot){position:relative;z-index:1}
 .hero .hi{font-size:clamp(18px,2vw,24px);font-weight:500;margin-bottom:16px}
 .hero h1{font-size:clamp(60px,12vw,176px);line-height:.9;letter-spacing:-.045em}
 .ln{display:block;overflow:hidden;padding-bottom:.06em}
@@ -223,6 +223,15 @@ textarea{min-height:130px;resize:vertical}
 .gal .sbtn{min-height:36px;padding:0 10px}
 .adm hr{border:0;border-top:1px solid var(--line);margin:22px 0}
 .adm h3{font-size:18px;margin-bottom:10px}
+
+/* logo used in place of the IO text */
+.hero-logo{position:absolute;right:5%;top:8%;width:clamp(200px,34vw,480px);height:auto;max-height:70%;object-fit:contain;pointer-events:none}
+.about-logo{width:62%;max-height:62%;object-fit:contain}
+.thumb.ph .ph-logo{width:96px;height:auto;max-height:96px;object-fit:contain}
+.ftr .flogo{height:28px;width:auto;vertical-align:middle}
+/* faint background video (optional) */
+#bgvid{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;opacity:.14;z-index:-1;pointer-events:none}
+body.has-bg{background:transparent}
 </style>
 </head>
 <body>
@@ -237,6 +246,24 @@ var $=function(s){return document.querySelector(s)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
 var okImg=function(u){if(typeof u!=='string'||!u)return false;if(/^data:image\/(webp|jpeg|png|gif|svg\+xml);base64,/.test(u))return true;return /^(\/|https:\/\/)[^"'<>\s]+$/.test(u)};
 
+function normImg(v){
+ if(v&&typeof v==='object'){
+  var cand=v.image||v.src||v.url||v.path||v.file;
+  if(!cand){for(var k in v){if(typeof v[k]==='string'&&v[k]){cand=v[k];break}}}
+  v=cand;
+ }
+ if(typeof v!=='string')return '';
+ v=v.trim();if(!v)return '';
+ if(/^data:/i.test(v))return v;
+ if(!/^https?:\/\//i.test(v)&&v.charAt(0)!=='/')v='/'+v;
+ try{v=encodeURI(decodeURI(v))}catch(e){v=v.replace(/ /g,'%20')}
+ return v;
+}
+function normList(v){
+ if(typeof v==='string')v=v.split(/\r?\n/);
+ if(!Array.isArray(v))return [];
+ var out=[];v.forEach(function(x){var n=normImg(x);if(n&&out.indexOf(n)<0)out.push(n)});return out;
+}
 var CATS=['Brand Identity','Print','Corporate Layout','Social Media','Concept'];
 var SERVICES=[
  {name:'Brand Identity',desc:'Logo, colours, typography and a simple guide, so your business looks the same everywhere it appears.'},
@@ -256,7 +283,7 @@ var ARROW='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="c
 
 function load(){
  var d={};try{d=JSON.parse($('#site-data').textContent)}catch(e){}
- var s={whatsapp:'2348124866017',email:'',x:'',tiktok:'',instagram:'',portrait:'',logo:''};
+ var s={whatsapp:'2348124866017',email:'',x:'',tiktok:'',instagram:'',portrait:'',logo:'',bgvideo:''};
  for(var k in (d.settings||{}))s[k]=d.settings[k];
  return {settings:s,projects:d.projects||[],testimonials:d.testimonials||[],collabs:d.collabs||[]};
 }
@@ -308,7 +335,7 @@ function header(){
 function slot(kind,label,cls){return ui.owner?'<button class="slot '+cls+'" data-action="pick" data-v="'+kind+'">'+label+'</button>':''}
 function hero(){
  var s=STATE.settings,st=ui.animated?' static':'';
- var art=okImg(s.portrait)?'<img class="hero-photo" src="'+s.portrait+'" alt="Portrait of Innocent Omale">':'<div class="hero-art" aria-hidden="true">IO</div>';
+ var art=okImg(s.portrait)?'<img class="hero-photo" src="'+s.portrait+'" alt="Portrait of Innocent Omale">':(okImg(s.logo)?'<img class="hero-logo" src="'+s.logo+'" alt="" aria-hidden="true">':'<div class="hero-art" aria-hidden="true">IO</div>');
  var rows=['Brand Identity','Print Design','Corporate Layouts','Social Media Design'].map(function(t,i){return '<div><b>0'+(i+1)+'</b>'+t+'</div>'}).join('');
  return '<section class="wrap" style="padding-top:8px"><div class="hero">'+art+(okImg(s.portrait)?slot('portrait','Change portrait','slot-hero'):slot('portrait','+ Add your portrait','slot-hero'))+
   '<div><p class="hi">Hey, I\u2019m Innocent,</p><h1><span class="ln'+st+'"><span>Graphic</span></span><span class="ln'+st+'"><span>Designer</span></span></h1></div>'+
@@ -328,7 +355,7 @@ function work(){
  if(ui.owner)h+='<div class="row" style="margin-bottom:22px"><button class="sbtn pri" data-action="quick-new">+ Add a project</button><span class="small">Only you can see this button.</span></div>';
  if(!list.length){
   var ph=['Brand identity','Print','Corporate layout','Social media','Brand identity','Print'];
-  h+='<div class="grid">'+ph.map(function(c,i){return '<article class="card"><div class="thumb ph ph'+(i+1)+'"><div><div class="io">IO</div><small>Case study coming soon</small></div></div><div class="card-meta"><h3>'+c+' project</h3><span class="sub">Coming soon</span></div></article>'}).join('')+'</div></section>';
+  h+='<div class="grid">'+ph.map(function(c,i){return '<article class="card"><div class="thumb ph ph'+(i+1)+'"><div>'+(okImg(STATE.settings.logo)?'<img class="ph-logo" src="'+STATE.settings.logo+'" alt="">':'<div class="io">IO</div>')+'<small>Case study coming soon</small></div></div><div class="card-meta"><h3>'+c+' project</h3><span class="sub">Coming soon</span></div></article>'}).join('')+'</div></section>';
   return h;
  }
  var cats=['All'].concat(CATS.filter(function(c){return list.some(function(p){return p.category===c})}));
@@ -351,7 +378,7 @@ function process(){
 }
 function about(){
  var s=STATE.settings;
- var art=okImg(s.portrait)?'<img src="'+s.portrait+'" alt="Innocent Omale">':'<div class="io" aria-hidden="true">IO</div>';
+ var art=okImg(s.portrait)?'<img src="'+s.portrait+'" alt="Innocent Omale">':(okImg(s.logo)?'<img class="about-logo" src="'+s.logo+'" alt="Innocent Omale logo">':'<div class="io" aria-hidden="true">IO</div>');
  return '<section class="sec wrap" id="about"><div class="about"><div class="about-art">'+art+'</div><div>'+
  '<h2>Hi, I\u2019m Innocent Omale.</h2>'+
  '<p class="big">I\u2019m a graphic designer who turns ideas, rough notes and long documents into brands, print materials and layouts that look sharp and professional.</p>'+
@@ -381,7 +408,7 @@ function footer(){
  var s=STATE.settings,links='<a href="'+waLink()+'" target="_blank" rel="noopener">WhatsApp</a>';
  if(s.email)links+='<a href="mailto:'+esc(s.email)+'">Email</a>';
  [['x','X'],['tiktok','TikTok'],['instagram','Instagram']].forEach(function(k){var u=social(k[0],s[k[0]]);if(u)links+='<a href="'+esc(u)+'" target="_blank" rel="noopener">'+k[1]+'</a>'});
- return '<footer class="ftr"><div class="wrap in"><div><b style="font-family:\'Space Grotesk\',Inter,sans-serif;font-size:20px;color:var(--link)">IO</b> &nbsp;Graphic designer, working worldwide</div><div class="links">'+links+'</div><div>\u00A9 '+new Date().getFullYear()+' Innocent Omale</div></div></footer>';
+ return '<footer class="ftr"><div class="wrap in"><div>'+(okImg(s.logo)?'<img class="flogo" src="'+s.logo+'" alt="IO">':'<b style="font-family:\'Space Grotesk\',Inter,sans-serif;font-size:20px;color:var(--link)">IO</b>')+' &nbsp;Graphic designer, working worldwide</div><div class="links">'+links+'</div><div>\u00A9 '+new Date().getFullYear()+' Innocent Omale</div></div></footer>';
 }
 function render(){
  var y=window.scrollY;
@@ -396,11 +423,11 @@ function modal(){
  if(!ui.open){o.innerHTML='';document.body.style.overflow='';return}
  var p=STATE.projects.filter(function(x){return x.id===ui.open})[0];
  if(!p){ui.open=null;o.innerHTML='';document.body.style.overflow='';return}
- var imgs=[];if(okImg(p.cover))imgs.push(p.cover);(p.gallery||[]).forEach(function(g){if(okImg(g))imgs.push(g)});
+ var imgs=[];if(okImg(p.cover))imgs.push(p.cover);(p.gallery||[]).forEach(function(g){if(okImg(g)&&imgs.indexOf(g)<0)imgs.push(g)});
  var facts='<div><b>Category</b>'+esc(p.category)+'</div>'+(p.role?'<div><b>My role</b>'+esc(p.role)+'</div>':'')+(p.tools?'<div><b>Tools</b>'+esc(p.tools)+'</div>':'');
  o.innerHTML='<div class="ov" data-action="close-bg"><div class="mdl" role="dialog" aria-modal="true" aria-label="'+esc(p.title)+'"><div class="top"><div>'+(p.label?'<span class="chip">'+esc(p.label)+'</span>':'')+'<h2>'+esc(p.title)+'</h2></div><button class="icon-btn" data-action="close" aria-label="Close case study" id="m-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'+
   '<div class="facts">'+facts+'</div>'+(p.description?'<p class="desc">'+esc(p.description)+'</p>':'')+
-  '<div class="shots">'+imgs.map(function(src){return '<img loading="lazy" src="'+src+'" alt="'+esc(p.title)+'">'}).join('')+'</div>'+
+  '<div class="shots">'+imgs.map(function(src,n){return '<img decoding="async" src="'+src+'" alt="'+esc(p.title)+' image '+(n+1)+'">'}).join('')+'</div>'+
   (p.outcome?'<div class="outcome"><b>Outcome</b>'+esc(p.outcome)+'</div>':'')+
   '<button class="btn btn-primary" data-action="similar" data-id="'+esc(p.id)+'">Start a similar project<span class="ico">'+ARROW+'</span></button></div></div>';
  document.body.style.overflow='hidden';
@@ -640,13 +667,24 @@ document.addEventListener('keydown',function(e){
 
 /* start */
 render();
+function applyFavicon(){var u=STATE.settings.logo;if(!okImg(u))return;var l=document.querySelector('link[rel="icon"]');if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l)}l.href=u}
+function applyBg(){
+ var v=$('#bgvid'),u=STATE.settings.bgvideo;
+ var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var save=navigator.connection&&navigator.connection.saveData;
+ if(!u||!/^\/[^"'<>\s]+\.(mp4|webm)$/i.test(u)||reduce||save){if(v)v.remove();document.body.classList.remove('has-bg');return}
+ if(!v){v=document.createElement('video');v.id='bgvid';v.muted=true;v.defaultMuted=true;v.loop=true;v.autoplay=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('aria-hidden','true');v.preload='auto';document.body.insertBefore(v,document.body.firstChild)}
+ if(v.getAttribute('src')!==u)v.src=u;
+ document.body.classList.add('has-bg');
+ var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});
+}
 function loadContent(){
  function get(u){return fetch(u,{cache:'no-cache'}).then(function(r){return r.ok?r.json():{}}).catch(function(){return {}})}
  Promise.all([get('/content/settings.json'),get('/content/projects.json')]).then(function(r){
   var st=r[0]||{},pj=r[1]||{};
   for(var k in st){if(typeof st[k]==='string')STATE.settings[k]=st[k]}
-  STATE.projects=(pj.projects||[]).map(function(x,i){x.id=x.id||('p'+i);x.created=x.created||(1000000-i);x.gallery=x.gallery||[];return x});
-  render();
+  STATE.projects=(pj.projects||[]).map(function(x,i){x.id=x.id||('p'+i);x.created=x.created||(1000000-i);x.cover=normImg(x.cover);x.gallery=normList(x.gallery);return x});
+  render();applyBg();applyFavicon();
  });
 }
 loadContent();
