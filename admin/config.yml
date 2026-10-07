@@ -1,0 +1,53 @@
+# Admin settings for the portfolio.
+# Before using it, change YOUR-GITHUB-USERNAME/YOUR-REPO-NAME below.
+
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME
+  branch: main
+
+media_folder: images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: portfolio
+    label: Portfolio
+    files:
+      - name: projects
+        label: Projects
+        file: content/projects.json
+        fields:
+          - label: Projects
+            name: projects
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - label: Category
+                name: category
+                widget: select
+                options: ["Brand Identity", "Print", "Corporate Layout", "Social Media", "Concept"]
+              - { label: "Label (e.g. Designed collaboratively with ...)", name: label, widget: string, required: false }
+              - { label: My role, name: role, widget: string, required: false }
+              - { label: Tools, name: tools, widget: string, required: false }
+              - { label: What it is, name: description, widget: text, required: false }
+              - { label: Outcome, name: outcome, widget: text, required: false }
+              - { label: Cover image, name: cover, widget: image }
+              - label: Gallery images
+                name: gallery
+                widget: list
+                required: false
+                field: { label: Image, name: image, widget: image }
+              - { label: Feature this project (shown first), name: featured, widget: boolean, default: false }
+              - { label: Published (visible on the site), name: published, widget: boolean, default: true }
+      - name: settings
+        label: Contact, portrait and logo
+        file: content/settings.json
+        fields:
+          - { label: WhatsApp number (with country code), name: whatsapp, widget: string }
+          - { label: Email, name: email, widget: string, required: false }
+          - { label: X handle or link, name: x, widget: string, required: false }
+          - { label: TikTok handle or link, name: tiktok, widget: string, required: false }
+          - { label: Instagram handle or link, name: instagram, widget: string, required: false }
+          - { label: Portrait, name: portrait, widget: image, required: false }
+          - { label: Logo (SVG or PNG), name: logo, widget: image, required: false }
