@@ -1,3 +1,21 @@
 {
-  "projects": []
+  "projects": [
+    {
+      "title": "she rise",
+      "category": "Social Media",
+      "label": "",
+      "role": "",
+      "tools": "",
+      "description": "",
+      "outcome": "",
+      "cover": "/images/uploads/Gemini_Generated_Image_fd6z9yfd6z9yfd6z.jpg",
+      "gallery": [
+        "/images/uploads/Kaduna Impactful Assembly Member 2023 Poster.png",
+        "/images/uploads/images (12).jpg",
+        "/images/uploads/WhatsApp Image 2026-10-07 at 1.23.08 PM.jpeg"
+      ],
+      "featured": false,
+      "published": true
+    }
+  ]
 }
