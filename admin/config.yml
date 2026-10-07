@@ -1,5 +1,5 @@
 # Admin settings for the portfolio.
-# Before using it, change YOUR-GITHUB-USERNAME/YOUR-REPO-NAME below.
+# Before using it, repo is already set to oma340/Portfolio.
 
 backend:
   name: github
@@ -51,3 +51,4 @@ collections:
           - { label: Instagram handle or link, name: instagram, widget: string, required: false }
           - { label: Portrait, name: portrait, widget: image, required: false }
           - { label: Logo (SVG or PNG), name: logo, widget: image, required: false }
+          - { label: "Faint background video (optional, MP4 under 5 MB, no sound)", name: bgvideo, widget: file, required: false }
