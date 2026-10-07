@@ -3,7 +3,7 @@
 
 backend:
   name: github
-  repo: oma340/Portfolio
+  repo: oma340/portfolio
   branch: main
 
 media_folder: images/uploads
