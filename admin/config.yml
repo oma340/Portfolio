@@ -9,6 +9,19 @@ backend:
 media_folder: images/uploads
 public_folder: /images/uploads
 
+# Shrinks every uploaded photo automatically (WebP, max 1600 px) so saves stay fast
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 1600
+          height: 1600
+        svg:
+          optimize: true
+
 collections:
   - name: portfolio
     label: Portfolio
