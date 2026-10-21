@@ -70,21 +70,6 @@
       ],
       "featured": true,
       "published": true
-    },
-    {
-      "title": "muj",
-      "category": "Social Media",
-      "label": "hhy",
-      "role": "yyyy",
-      "tools": "",
-      "description": "",
-      "outcome": "",
-      "cover": "/images/uploads/11.webp",
-      "gallery": [
-        "/images/uploads/2@2x.png"
-      ],
-      "featured": false,
-      "published": true
     }
   ]
 }
