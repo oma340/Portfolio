@@ -33,11 +33,11 @@ collections:
               - { label: What it is, name: description, widget: text, required: false }
               - { label: Outcome, name: outcome, widget: text, required: false }
               - { label: Cover image, name: cover, widget: image }
-              - label: Gallery images
+              - label: Gallery images (select or drop many at once)
                 name: gallery
-                widget: list
+                widget: image
+                multiple: true
                 required: false
-                field: { label: Image, name: image, widget: image }
               - { label: Feature this project (shown first), name: featured, widget: boolean, default: false }
               - { label: Published (visible on the site), name: published, widget: boolean, default: true }
       - name: settings
