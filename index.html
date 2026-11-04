@@ -236,6 +236,76 @@ textarea{min-height:130px;resize:vertical}
 .about-logo{width:62%;max-height:62%;object-fit:contain}
 .thumb.ph .ph-logo{width:96px;height:auto;max-height:96px;object-fit:contain}
 .ftr .flogo{height:28px;width:auto;vertical-align:middle}
+/* private PDF page, opened with ?pdf */
+#print-root{display:none}
+body.pdfmode #root,body.pdfmode #modal-root,body.pdfmode #admin-root,body.pdfmode #bgvid{display:none!important}
+body.pdfmode{background:#0E0E0D}
+body.pdfmode #print-root{display:block;min-height:100vh}
+.pdf-bar{position:sticky;top:0;z-index:5;display:flex;gap:16px;align-items:center;justify-content:space-between;padding:12px 20px;background:#171715;color:#F6F2EA;font:500 15px Inter,system-ui,sans-serif;border-bottom:1px solid #2C2B27}
+.pdf-bar span{display:block;color:#A19C91;font-weight:400;font-size:13px;margin-top:2px;max-width:70ch}
+.pdf-stack{display:grid;gap:20px;justify-content:center;padding:20px}
+.pdf-slot{position:relative;width:calc(1280px*var(--ps,1));height:calc(720px*var(--ps,1));overflow:hidden;border-radius:10px}
+.pdf-page{position:absolute;left:0;top:0;width:1280px;height:720px;transform:scale(var(--ps,1));transform-origin:top left;background:#0E0E0D;color:#F6F2EA;font:400 17px/1.5 Inter,system-ui,sans-serif;padding:60px 72px 96px;overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pdf-page *{box-sizing:border-box}
+.pdf-page h1,.pdf-page h2,.pdf-page h3{font-family:"Space Grotesk",Inter,system-ui,sans-serif;letter-spacing:-.025em;line-height:1.04;font-weight:700}
+.pdf-page :where(h1,h2,h3,p,dl,dd){margin:0}
+.pdf-label{color:#E8553F;font-weight:600;font-size:15px;margin-bottom:14px}
+.pdf-foot{position:absolute;left:72px;right:72px;bottom:30px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #2C2B27;padding-top:14px;font-size:13px;color:#A19C91}
+.pdf-foot span{display:flex;align-items:center;gap:12px}
+.pdf-foot i{font-style:normal}
+.pdf-io{font:700 20px "Space Grotesk",Inter,sans-serif;color:#E8553F;letter-spacing:-.04em}
+.pdf-lg{height:24px;width:auto}
+.pdf-cover{background:radial-gradient(110% 120% at 85% 0%,#F26A3A 0%,#D93A28 30%,#8A2014 66%,#2B0B07 100%);display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:64px}
+.pdf-top{position:absolute;left:72px;top:56px;font-weight:600;font-size:15px}
+.pdf-hero p{font-size:26px;margin-bottom:12px}
+.pdf-hero h1{font-size:128px;line-height:.92;letter-spacing:-.045em}
+.pdf-tag{font-size:20px;max-width:520px;margin-top:30px}
+.pdf-photo{position:absolute;right:72px;top:50%;transform:translateY(-50%);width:340px;height:425px;object-fit:cover;object-position:center 20%;border-radius:28px;border:4px solid rgba(255,255,255,.9);box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.pdf-biglogo{position:absolute;right:96px;top:50%;transform:translateY(-50%);width:380px;max-height:380px;object-fit:contain}
+.pdf-bigio{position:absolute;right:40px;top:30px;font:700 520px/.8 "Space Grotesk",Inter,sans-serif;letter-spacing:-.07em;color:#0E0E0D;opacity:.9}
+.pdf-about{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;margin-top:20px}
+.pdf-about h2{font-size:68px}
+.pdf-about p{color:#A19C91;margin-bottom:16px;font-size:18px;line-height:1.55}
+.pdf-about p.pdf-big{color:#F6F2EA;font-size:24px;line-height:1.35;font-weight:500}
+.pdf-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.pdf-chip{display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid #2C2B27;background:#171715;font-size:14px;width:fit-content}
+.pdf-h2{font-size:52px;margin-bottom:26px}
+.pdf-svc{display:grid;grid-template-columns:70px 1.1fr 1.4fr;gap:20px;align-items:center;padding:16px 0;border-top:1px solid #2C2B27}
+.pdf-svc b{color:#E8553F;font:700 16px "Space Grotesk",Inter,sans-serif}
+.pdf-svc h3{font-size:25px}
+.pdf-svc p{color:#A19C91;font-size:15px;line-height:1.45}
+.pdf-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:70px}
+.pdf-steps div{border-top:2px solid #2C2B27;padding-top:18px}
+.pdf-steps b{display:block;font:700 84px/1 "Space Grotesk",Inter,sans-serif;color:#E8553F;letter-spacing:-.04em;margin-bottom:14px}
+.pdf-steps h3{font-size:26px;margin-bottom:8px}
+.pdf-steps p{color:#A19C91;font-size:15px;line-height:1.5}
+.pdf-proj{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.pdf-proj h2{font-size:44px;margin:14px 0 18px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pdf-proj>div:first-child{max-height:588px;overflow:hidden}
+.pdf-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:0 0 20px;padding:14px 0;border-top:1px solid #2C2B27;border-bottom:1px solid #2C2B27;font-size:15px}
+.pdf-facts b{display:block;color:#A19C91;font-weight:500;font-size:13px}
+.pdf-desc{color:#A19C91;font-size:16px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:18px}
+.pdf-out{background:#171715;border:1px solid #2C2B27;border-radius:18px;padding:16px 18px;font-size:15px}
+.pdf-out b{display:block;margin-bottom:4px}
+.pdf-out span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:#A19C91}
+.pdf-shot,.pdf-cell{background:#171715;border:1px solid #2C2B27;border-radius:22px;overflow:hidden;display:flex}
+.pdf-shot{height:560px}
+.pdf-shot img,.pdf-cell img{width:100%;height:100%;object-fit:contain;display:block}
+.pdf-grid{display:grid;gap:18px;height:540px;grid-template-columns:1fr 1fr;grid-auto-rows:1fr}
+.pdf-grid.g1{grid-template-columns:1fr}
+.pdf-contact h2{font-size:84px;margin-bottom:22px}
+.pdf-contact .pdf-lead{color:#A19C91;font-size:20px;max-width:520px;margin-bottom:34px}
+.pdf-reach{display:grid;grid-template-columns:1fr 1fr;gap:22px 40px;max-width:760px}
+.pdf-reach small{display:block;color:#A19C91;font-size:13px}
+.pdf-reach b{font:600 24px "Space Grotesk",Inter,sans-serif}
+@media print{
+ html,body{background:#0E0E0D!important;margin:0!important;padding:0!important}
+ .pdf-bar{display:none!important}
+ .pdf-stack{display:block;padding:0}
+ .pdf-slot{width:1280px;height:720px;border-radius:0;break-after:page;page-break-after:always}
+ .pdf-slot:last-child{break-after:auto;page-break-after:auto}
+ .pdf-page{transform:none!important}
+}
 /* faint background video (optional) */
 #bgvid{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;opacity:.14;z-index:-1;pointer-events:none}
 body.has-bg{background:transparent}
@@ -272,6 +342,8 @@ function normList(v){
  var out=[];v.forEach(function(x){var n=normImg(x);if(n&&out.indexOf(n)<0)out.push(n)});return out;
 }
 var CATS=['Brand Identity','Print','Corporate Layout','Social Media','Concept'];
+var ABOUT=['I\u2019m a graphic designer who turns ideas, rough notes and long documents into brands, print materials and layouts that look sharp and professional.','You will always know where your project stands. I ask the right questions up front, show you drafts early, and deliver clean, organised files you can use the same day.','Launching a brand, printing for an event or tidying up a company profile, the deal is the same: you share the idea, I handle the design, and you stay in the loop the whole way. If it needs to look right, let\u2019s make it look right.'];
+var TOOLS=['Adobe Photoshop','Affinity by Canva','CorelDraw','Adobe Illustrator'];
 var SERVICES=[
  {name:'Brand Identity',desc:'Logo, colours, typography and a simple guide, so your business looks the same everywhere it appears.'},
  {name:'Print Design',desc:'Flyers, posters, banners, brochures and programs that read quickly and print cleanly.'},
@@ -388,10 +460,10 @@ function about(){
  var art=okImg(s.portrait)?'<img src="'+s.portrait+'" alt="Innocent Omale">':(okImg(s.logo)?'<img class="about-logo" src="'+s.logo+'" alt="Innocent Omale logo">':'<div class="io" aria-hidden="true">IO</div>');
  return '<section class="sec wrap" id="about"><div class="about"><div class="about-art">'+art+'</div><div>'+
  '<h2>Hi, I\u2019m Innocent Omale.</h2>'+
- '<p class="big">I\u2019m a graphic designer who turns ideas, rough notes and long documents into brands, print materials and layouts that look sharp and professional.</p>'+
- '<p>You will always know where your project stands. I ask the right questions up front, show you drafts early, and deliver clean, organised files you can use the same day.</p>'+
- '<p>Launching a brand, printing for an event or tidying up a company profile, the deal is the same: you share the idea, I handle the design, and you stay in the loop the whole way. If it needs to look right, let\u2019s make it look right.</p>'+
- '<div class="tools"><span class="chip">Adobe Photoshop</span><span class="chip">Affinity by Canva</span><span class="chip">CorelDraw</span><span class="chip">Adobe Illustrator</span></div></div></div></section>';
+ '<p class="big">'+esc(ABOUT[0])+'</p>'+
+ '<p>'+esc(ABOUT[1])+'</p>'+
+ '<p>'+esc(ABOUT[2])+'</p>'+
+ '<div class="tools">'+TOOLS.map(function(t){return '<span class="chip">'+esc(t)+'</span>'}).join('')+'</div></div></section>';
 }
 function testimonials(){
  if(!STATE.testimonials.length)return '';
@@ -586,6 +658,7 @@ document.addEventListener('click',function(e){
  var t=e.target.closest('[data-action]');if(!t)return;
  var a=t.dataset.action,id=t.dataset.id,i=Number(t.dataset.i);
  if(a==='close-bg'){if(e.target===t)closeProject();return}
+ if(a==='pdf-print'){pdfPrint();return}
  if(a==='theme'){setTheme(document.documentElement.getAttribute('data-theme')==='light'?'dark':'light');render();return}
  if(a==='filter'){ui.filter=t.dataset.v;render();return}
  if(a==='open'){openProject(id,t);return}
@@ -674,6 +747,47 @@ document.addEventListener('keydown',function(e){
 
 /* start */
 render();
+/* ---- private PDF page: open yoursite/?pdf ---- */
+var PDFMODE=(function(){try{return new URLSearchParams(location.search).has('pdf')||location.hash==='#pdf'}catch(e){return false}})();
+function pdfPages(){
+ var s=STATE.settings,list=publishedProjects(),yr=new Date().getFullYear(),pages=[];
+ var mk=okImg(s.logo)?'<img class="pdf-lg" src="'+s.logo+'" alt="">':'<b class="pdf-io">IO</b>';
+ function foot(l){return '<div class="pdf-foot"><span>'+mk+'<i>Innocent Omale  |  Graphic Designer</i></span><span>'+esc(l)+'</span></div>'}
+ var art=okImg(s.portrait)?'<img class="pdf-photo" src="'+s.portrait+'" alt="">':(okImg(s.logo)?'<img class="pdf-biglogo" src="'+s.logo+'" alt="">':'<div class="pdf-bigio" aria-hidden="true">IO</div>');
+ pages.push('<section class="pdf-page pdf-cover">'+art+'<div class="pdf-top">Portfolio '+yr+'</div><div class="pdf-hero"><p>Hey, I’m Innocent,</p><h1>Graphic<br>Designer</h1></div><p class="pdf-tag">Brand identity, print and corporate layouts for businesses and organizations, wherever you are.</p></section>');
+ pages.push('<section class="pdf-page"><div class="pdf-label">About</div><div class="pdf-about"><h2>Hi, I’m<br>Innocent Omale.</h2><div><p class="pdf-big">'+esc(ABOUT[0])+'</p><p>'+esc(ABOUT[1])+'</p><p>'+esc(ABOUT[2])+'</p><div class="pdf-chips">'+TOOLS.map(function(t){return '<span class="pdf-chip">'+esc(t)+'</span>'}).join('')+'</div></div></div>'+foot('About')+'</section>');
+ pages.push('<section class="pdf-page"><div class="pdf-label">Services</div><h2 class="pdf-h2">What I can do for you</h2>'+SERVICES.map(function(x,i){return '<div class="pdf-svc"><b>0'+(i+1)+'</b><h3>'+esc(x.name)+'</h3><p>'+esc(x.desc)+'</p></div>'}).join('')+foot('Services')+'</section>');
+ pages.push('<section class="pdf-page"><div class="pdf-label">Process</div><h2 class="pdf-h2">How we work together</h2><div class="pdf-steps">'+STEPS.map(function(x,i){return '<div><b>'+(i+1)+'</b><h3>'+esc(x.t)+'</h3><p>'+esc(x.d)+'</p></div>'}).join('')+'</div>'+foot('Process')+'</section>');
+ list.forEach(function(p){
+  var cv=cover(p),gal=(p.gallery||[]).filter(function(g){return okImg(g)&&g!==cv});
+  var facts='<div><b>Category</b>'+esc(p.category)+'</div>'+(p.role?'<div><b>My role</b>'+esc(p.role)+'</div>':'')+(p.tools?'<div><b>Tools</b>'+esc(p.tools)+'</div>':'');
+  pages.push('<section class="pdf-page pdf-proj"><div><div class="pdf-label">Selected work</div>'+(p.label?'<span class="pdf-chip">'+esc(p.label)+'</span>':'')+'<h2>'+esc(p.title)+'</h2><div class="pdf-facts">'+facts+'</div>'+(p.description?'<p class="pdf-desc">'+esc(p.description)+'</p>':'')+(p.outcome?'<div class="pdf-out"><b>Outcome</b><span>'+esc(p.outcome)+'</span></div>':'')+'</div><div class="pdf-shot">'+(cv?'<img src="'+cv+'" alt="">':'')+'</div>'+foot('Selected work')+'</section>');
+  for(var i=0;i<gal.length;i+=4){
+   var ch=gal.slice(i,i+4);
+   pages.push('<section class="pdf-page"><div class="pdf-label">'+esc(p.title)+'</div><div class="pdf-grid g'+ch.length+'">'+ch.map(function(g){return '<div class="pdf-cell"><img src="'+g+'" alt=""></div>'}).join('')+'</div>'+foot('Selected work')+'</section>');
+  }
+ });
+ var rc=[['WhatsApp','+234 812 486 6017']];
+ if(s.email)rc.push(['Email',s.email]);
+ [['x','X'],['tiktok','TikTok'],['instagram','Instagram']].forEach(function(k){if(String(s[k[0]]||'').trim())rc.push([k[1],String(s[k[0]]).replace(/^https?:\/\/(www\.)?/,'')])});
+ pages.push('<section class="pdf-page pdf-contact"><div class="pdf-label">Contact</div><h2>Tell me what<br>you need.</h2><p class="pdf-lead">Send me your brief on WhatsApp and I’ll reply with questions and a quote.</p><div class="pdf-reach">'+rc.map(function(r){return '<div><small>'+esc(r[0])+'</small><b>'+esc(r[1])+'</b></div>'}).join('')+'</div>'+foot('Contact')+'</section>');
+ return pages;
+}
+function pdfFit(){var ps=Math.min(1,(window.innerWidth-40)/1280);document.documentElement.style.setProperty('--ps',ps.toFixed(4))}
+function buildPdfView(){
+ document.title='Innocent Omale - Portfolio';
+ document.body.classList.add('pdfmode');
+ if(!document.getElementById('pdf-page-rule')){var st=document.createElement('style');st.id='pdf-page-rule';st.textContent='@page{size:1280px 720px;margin:0}';document.head.appendChild(st)}
+ var pr=document.getElementById('print-root');
+ if(!pr){pr=document.createElement('div');pr.id='print-root';document.body.appendChild(pr)}
+ pr.innerHTML='<div class="pdf-bar"><div><b>Portfolio PDF</b><span>Tap Save as PDF, then choose Save as PDF as the destination. If the dark pages come out white, switch on Background graphics in the print options.</span></div><button class="btn btn-primary sm" data-action="pdf-print">Save as PDF</button></div><div class="pdf-stack">'+pdfPages().map(function(h){return '<div class="pdf-slot">'+h+'</div>'}).join('')+'</div>';
+ pdfFit();
+}
+function pdfPrint(){
+ var imgs=Array.prototype.slice.call(document.querySelectorAll('#print-root img'));
+ Promise.all(imgs.map(function(i){return i.complete?Promise.resolve():new Promise(function(r){i.onload=i.onerror=r})})).then(function(){setTimeout(function(){window.print()},80)});
+}
+window.addEventListener('resize',function(){if(PDFMODE)pdfFit()});
 function applyFavicon(){var u=STATE.settings.logo;if(!okImg(u))return;var l=document.querySelector('link[rel="icon"]');if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l)}l.href=u}
 function applyBg(){
  var v=$('#bgvid'),u=STATE.settings.bgvideo;
@@ -690,8 +804,9 @@ function loadContent(){
  Promise.all([get('/content/settings.json'),get('/content/projects.json')]).then(function(r){
   var st=r[0]||{},pj=r[1]||{};
   for(var k in st){if(typeof st[k]==='string')STATE.settings[k]=st[k]}
+  STATE.settings.portrait=normImg(STATE.settings.portrait);STATE.settings.logo=normImg(STATE.settings.logo);
   STATE.projects=(pj.projects||[]).map(function(x,i){x.id=x.id||('p'+i);x.created=x.created||(1000000-i);x.cover=normImg(x.cover);x.gallery=normList(x.gallery);return x});
-  render();applyBg();applyFavicon();
+  render();applyBg();applyFavicon();if(PDFMODE)buildPdfView();
  });
 }
 loadContent();
