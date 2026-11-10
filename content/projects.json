@@ -68,6 +68,24 @@
       ],
       "featured": true,
       "published": true
+    },
+    {
+      "title": "Bizternet",
+      "category": "Social Media",
+      "label": "MadebyIO",
+      "role": "Designer",
+      "tools": "Affinity by Canva",
+      "description": "",
+      "outcome": "",
+      "cover": "/images/uploads/FLIER 1.webp",
+      "gallery": [
+        "/images/uploads/FLIER 1.webp",
+        "/images/uploads/FLIER 2.webp",
+        "/images/uploads/FLIER 3.webp",
+        "/images/uploads/FLIER.webp"
+      ],
+      "featured": false,
+      "published": true
     }
   ]
 }
